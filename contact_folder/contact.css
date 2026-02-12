@@ -1,0 +1,63 @@
+/* ===== PAGE STYLES OPTIMIZATION ===== */
+
+/* Border Radius Utilities for Pages */
+.page-hero,
+.page-section {
+  border-radius: 12px;
+}
+
+/* Shadow Utilities for Pages */
+.page-hero {
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+}
+
+.page-container {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 0 1.5rem 2rem;
+}
+
+.page-hero {
+  background: var(--bg-light);
+  padding: 2rem;
+  border-top: 4px solid var(--primary-red);
+  margin-bottom: 2rem;
+}
+
+.page-hero h2 {
+  color: var(--light-red);
+  margin-bottom: 0.8rem;
+}
+
+.page-section {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(220, 20, 60, 0.2);
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.page-section h3 {
+  color: var(--light-red);
+  margin-bottom: 0.6rem;
+}
+
+.page-section a {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.2s;
+}
+
+.page-section a:hover {
+  color: #fff3a0;
+}
+
+@media (max-width: 768px) {
+  .page-container {
+    padding: 0 1rem 2rem;
+  }
+
+  .page-hero {
+    padding: 1.5rem;
+  }
+}

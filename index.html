@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Page metadata -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ournimation</title>
+    <meta
+      name="description"
+      content="Join Ournimation, an online animation community where creators share animations, learn new techniques, collaborate on projects, and connect with fellow artists worldwide."
+    />
+    <meta
+      name="keywords"
+      content="animation community, animators hub, animation platform, creative community, digital artists, animation tutorials, learn animation, animation tips, animator resources, share animations, animation showcase, creator network, collaborate artists, 2D animation, 3D animation, motion graphics, indie animators, Ournimation, Ournimation community, Ournimation platform"
+    />
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Stylesheets (theme + icons) -->
+    <link rel="stylesheet" href="index.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <!-- Header: branding, search, and account summary -->
+    <header class="header">
+      <div class="header-container">
+        <div class="header-left">
+          <h1 class="site-title">Ournimation</h1>
+          <form class="search-bar" role="search">
+            <input type="text" placeholder="Search animations..." />
+            <button class="search-btn" type="submit">
+              <i class="fas fa-search"></i>
+            </button>
+          </form>
+        </div>
+        <div class="header-right">
+          <div class="auth-buttons" id="authButtons">
+            <button class="btn-login" id="loginBtn">
+              <i class="fas fa-sign-in-alt"></i> Login
+            </button>
+            <button class="btn-signup" id="signupBtn">
+              <i class="fas fa-user-plus"></i> Sign Up
+            </button>
+          </div>
+          <div class="account-info" id="accountInfo">
+            <img
+              src="https://wallpaperaccess.com/full/1986236.jpg"
+              alt="Account Avatar"
+              class="avatar"
+            />
+            <span class="username">Guest</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <button
+      class="hamburger-btn hamburger-mobile"
+      id="hamburgerBtn"
+      aria-label="Open menu"
+    >
+      <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Main Container: sidebar + newsfeed content -->
+    <div class="container">
+      <!-- Sidebar Navigation: primary links -->
+      <aside class="sidebar">
+        <nav class="nav-menu">
+          <ul>
+            <li>
+              <a href="index.html" class="nav-link active"
+                ><i class="fas fa-home"></i> Home</a
+              >
+            </li>
+            <li>
+              <a href="tutorial_page/tutorial.html" class="nav-link"
+                ><i class="fas fa-book"></i> Animation Tutorial</a
+              >
+            </li>
+          </ul>
+        </nav>
+        <section class="sidebar-actions">
+          <button class="btn-create-post" id="createPostBtn">
+            <i class="fas fa-plus"></i> Create Post
+          </button>
+          <button class="btn-clear-posts" id="clearPostsBtn">
+            <i class="fas fa-trash-alt"></i> Clear Posts
+          </button>
+        </section>
+      </aside>
+
+      <!-- Main Content: newsfeed and actions -->
+      <main class="main-content">
+        <section class="posts-container">
+          <header class="posts-header">
+            <h2>Animation Newsfeed</h2>
+          </header>
+          <hr class="section-divider" />
+
+          <!-- Posts will be injected here by index.js -->
+          <div id="postsContainer"></div>
+        </section>
+      </main>
+    </div>
+
+    <!-- Create Post Modal: form for title/description/media -->
+    <section class="modal" id="createPostModal" role="dialog" aria-modal="true">
+      <div class="modal-content">
+        <header class="modal-header">
+          <h2>Create a New Post</h2>
+          <button class="close-btn" id="closeModalBtn">&times;</button>
+        </header>
+        <form id="postForm" class="post-form">
+          <!-- Title field -->
+          <div class="form-group">
+            <label for="postTitle">Post Title</label>
+            <input
+              type="text"
+              id="postTitle"
+              placeholder="Give your animation a title..."
+              required
+            />
+          </div>
+
+          <!-- Description field (auto-expands in JS) -->
+          <div class="form-group">
+            <label for="postDescription">Description</label>
+            <textarea
+              id="postDescription"
+              placeholder="Describe your animation..."
+              rows="4"
+              required
+            ></textarea>
+          </div>
+
+          <!-- Optional media upload -->
+          <div class="form-group">
+            <label for="postMedia"
+              ><i class="fas fa-cloud-upload-alt"></i> Image or Video
+              (Optional)</label
+            >
+            <label for="postMedia" class="file-input-label">
+              <i class="fas fa-image"></i> Click to upload or drag & drop
+            </label>
+            <input type="file" id="postMedia" accept="image/*,video/*" />
+            <small>Supported formats: JPG, PNG, GIF, MP4, WebM</small>
+          </div>
+
+          <!-- Form actions -->
+          <div class="form-actions">
+            <button type="submit" class="btn-submit">Post</button>
+            <button type="button" class="btn-cancel" id="cancelBtn">
+              Cancel
+            </button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- Login Modal -->
+    <section class="auth-modal" id="loginModal" role="dialog" aria-modal="true">
+      <section class="auth-card">
+        <button class="close-auth-modal" id="closeLoginModal">
+          <i class="fas fa-times"></i>
+        </button>
+        <header class="auth-card-header">
+          <h2>Login</h2>
+        </header>
+        <form class="auth-form" id="loginForm">
+          <div class="form-group">
+            <label for="loginEmail">
+              <i class="fas fa-envelope"></i> Username or Email
+            </label>
+            <input
+              type="text"
+              id="loginEmail"
+              placeholder="Enter your username or email"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="loginPassword">
+              <i class="fas fa-lock"></i> Password
+            </label>
+            <input
+              type="password"
+              id="loginPassword"
+              placeholder="Enter your password"
+              required
+            />
+          </div>
+          <div class="auth-remember-row">
+            <div class="form-group-checkbox">
+              <input type="checkbox" id="loginRemember" />
+              <label for="loginRemember">Remember me</label>
+            </div>
+            <div class="auth-forgot">
+              <a href="#">Forgot password?</a>
+            </div>
+          </div>
+          <button type="submit" class="auth-submit-btn">
+            <i class="fas fa-sign-in-alt"></i> Login
+          </button>
+        </form>
+        <footer class="auth-switch">
+          <p>Don't have an account?</p>
+          <button class="switch-auth-btn" id="switchToSignup">Sign Up</button>
+        </footer>
+      </section>
+    </section>
+
+    <!-- Signup Modal -->
+    <section
+      class="auth-modal"
+      id="signupModal"
+      role="dialog"
+      aria-modal="true"
+    >
+      <section class="auth-card">
+        <button class="close-auth-modal" id="closeSignupModal">
+          <i class="fas fa-times"></i>
+        </button>
+        <header class="auth-card-header">
+          <h2>Sign Up</h2>
+        </header>
+        <form class="auth-form" id="signupForm">
+          <div class="form-group">
+            <label for="signupEmail">
+              <i class="fas fa-envelope"></i> Username or Email
+            </label>
+            <input
+              type="text"
+              id="signupEmail"
+              placeholder="Enter your username or email"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="signupPassword">
+              <i class="fas fa-lock"></i> Password
+            </label>
+            <input
+              type="password"
+              id="signupPassword"
+              placeholder="Enter your password"
+              required
+            />
+          </div>
+          <div class="form-group-checkbox">
+            <input type="checkbox" id="signupRemember" />
+            <label for="signupRemember">Remember me</label>
+          </div>
+          <button type="submit" class="auth-submit-btn">
+            <i class="fas fa-user-plus"></i> Create Account
+          </button>
+        </form>
+        <footer class="auth-switch">
+          <p>Already have an account?</p>
+          <button class="switch-auth-btn" id="switchToLogin">Login</button>
+        </footer>
+      </section>
+    </section>
+
+    <!-- Footer: site links and copyright -->
+    <footer class="footer">
+      <div class="footer-content">
+        <p>&copy; 2026 Ournimation. All rights reserved.</p>
+        <div class="footer-links">
+          <a href="about_folder/about.html">About</a>
+          <a href="contact_folder/contact.html">Contact</a>
+          <a href="privacy_folder/privacy.html">Privacy Policy</a>
+          <a href="terms_folder/terms.html">Terms of Service</a>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Page scripts -->
+    <script src="index.js"></script>
+  </body>
+</html>

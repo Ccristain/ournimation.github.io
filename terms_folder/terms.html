@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Terms of Service - Ournimation</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../index.css" />
+    <link rel="stylesheet" href="terms.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <header class="header">
+      <div class="header-container">
+        <div class="header-left">
+          <h1 class="site-title">Ournimation</h1>
+          <form class="search-bar" role="search">
+            <input type="text" placeholder="Search animations..." />
+            <button class="search-btn" type="submit">
+              <i class="fas fa-search"></i>
+            </button>
+          </form>
+        </div>
+        <div class="header-right">
+          <div class="auth-buttons" id="authButtons">
+            <button class="btn-login" id="loginBtn">
+              <i class="fas fa-sign-in-alt"></i> Login
+            </button>
+            <button class="btn-signup" id="signupBtn">
+              <i class="fas fa-user-plus"></i> Sign Up
+            </button>
+          </div>
+          <div class="account-info" id="accountInfo">
+            <img
+              src="https://wallpaperaccess.com/full/1986236.jpg"
+              alt="Account Avatar"
+              class="avatar"
+            />
+            <span class="username">Guest</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="container">
+      <aside class="sidebar">
+        <nav class="nav-menu">
+          <ul>
+            <li>
+              <a href="../index.html" class="nav-link">
+                <i class="fas fa-home"></i> Home
+              </a>
+            </li>
+            <li>
+              <a href="../tutorial_page/tutorial.html" class="nav-link">
+                <i class="fas fa-book"></i> Animation Tutorial
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </aside>
+
+      <main class="main-content">
+        <article class="page-container">
+          <header class="page-hero">
+            <h2>Terms of Service</h2>
+            <p>
+              These terms outline the rules for using Ournimation. By using our
+              platform, you agree to follow them.
+            </p>
+            <h3>Community Guidelines</h3>
+            <p>
+              Be respectful, share original work, and follow the community rules
+              when posting.
+            </p>
+            <h3>Content Ownership</h3>
+            <p>
+              You retain ownership of your work, but grant us permission to
+              display it on the platform.
+            </p>
+            <h3>Contact</h3>
+            <p>Questions? Email us at terms@ournimation.com</p>
+          </header>
+        </article>
+      </main>
+    </div>
+
+    <!-- Login Modal -->
+    <section class="auth-modal" id="loginModal" role="dialog" aria-modal="true">
+      <section class="auth-card">
+        <button class="close-auth-modal" id="closeLoginModal">
+          <i class="fas fa-times"></i>
+        </button>
+        <header class="auth-card-header">
+          <h2>Login</h2>
+        </header>
+        <form class="auth-form" id="loginForm">
+          <div class="form-group">
+            <label for="loginEmail">
+              <i class="fas fa-envelope"></i> Username or Email
+            </label>
+            <input
+              type="text"
+              id="loginEmail"
+              placeholder="Enter your username or email"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="loginPassword">
+              <i class="fas fa-lock"></i> Password
+            </label>
+            <input
+              type="password"
+              id="loginPassword"
+              placeholder="Enter your password"
+              required
+            />
+          </div>
+          <div class="auth-remember-row">
+            <div class="form-group-checkbox">
+              <input type="checkbox" id="loginRemember" />
+              <label for="loginRemember">Remember me</label>
+            </div>
+            <div class="auth-forgot">
+              <a href="#">Forgot password?</a>
+            </div>
+          </div>
+          <button type="submit" class="auth-submit-btn">
+            <i class="fas fa-sign-in-alt"></i> Login
+          </button>
+        </form>
+        <footer class="auth-switch">
+          <p>Don't have an account?</p>
+          <button class="switch-auth-btn" id="switchToSignup">Sign Up</button>
+        </footer>
+      </section>
+    </section>
+
+    <!-- Signup Modal -->
+    <section
+      class="auth-modal"
+      id="signupModal"
+      role="dialog"
+      aria-modal="true"
+    >
+      <section class="auth-card">
+        <button class="close-auth-modal" id="closeSignupModal">
+          <i class="fas fa-times"></i>
+        </button>
+        <header class="auth-card-header">
+          <h2>Sign Up</h2>
+        </header>
+        <form class="auth-form" id="signupForm">
+          <div class="form-group">
+            <label for="signupEmail">
+              <i class="fas fa-envelope"></i> Username or Email
+            </label>
+            <input
+              type="text"
+              id="signupEmail"
+              placeholder="Enter your username or email"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="signupPassword">
+              <i class="fas fa-lock"></i> Password
+            </label>
+            <input
+              type="password"
+              id="signupPassword"
+              placeholder="Enter your password"
+              required
+            />
+          </div>
+          <div class="form-group-checkbox">
+            <input type="checkbox" id="signupRemember" />
+            <label for="signupRemember">Remember me</label>
+          </div>
+          <button type="submit" class="auth-submit-btn">
+            <i class="fas fa-user-plus"></i> Create Account
+          </button>
+        </form>
+        <footer class="auth-switch">
+          <p>Already have an account?</p>
+          <button class="switch-auth-btn" id="switchToLogin">Login</button>
+        </footer>
+      </section>
+    </section>
+
+    <footer class="footer">
+      <section class="footer-content">
+        <p>&copy; 2026 Ournimation. All rights reserved.</p>
+        <nav class="footer-links" aria-label="Footer">
+          <a href="../about_folder/about.html">About</a>
+          <a href="../contact_folder/contact.html">Contact</a>
+          <a href="../privacy_folder/privacy.html">Privacy Policy</a>
+          <a href="terms.html">Terms of Service</a>
+        </nav>
+      </section>
+    </footer>
+    <script src="../index.js"></script>
+  </body>
+</html>
