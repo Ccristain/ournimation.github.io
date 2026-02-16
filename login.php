@@ -9,6 +9,29 @@ header('Content-Type: application/json');
 // Include database connection
 require_once 'db.php';
 
+// Rate limiting: Check login attempts
+if (!isset($_SESSION['login_attempts'])) {
+    $_SESSION['login_attempts'] = 0;
+    $_SESSION['last_attempt_time'] = time();
+}
+
+// Reset counter if 15 minutes have passed
+if (time() - $_SESSION['last_attempt_time'] > 900) {
+    $_SESSION['login_attempts'] = 0;
+    $_SESSION['last_attempt_time'] = time();
+}
+
+// Check if user has exceeded attempts
+if ($_SESSION['login_attempts'] >= 5) {
+    $timeRemaining = 900 - (time() - $_SESSION['last_attempt_time']);
+    $minutesRemaining = ceil($timeRemaining / 60);
+    echo json_encode([
+        'success' => false,
+        'message' => "Too many login attempts. Please try again in {$minutesRemaining} minutes."
+    ]);
+    exit;
+}
+
 // Check if request method is POST
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     echo json_encode([
@@ -57,6 +80,10 @@ try {
     
     // Check if user exists
     if (!$user) {
+        // Increment failed attempts
+        $_SESSION['login_attempts']++;
+        $_SESSION['last_attempt_time'] = time();
+        
         echo json_encode([
             'success' => false,
             'message' => 'Invalid username/email or password'
@@ -66,12 +93,20 @@ try {
     
     // Verify password
     if (!password_verify($password, $user['password'])) {
+        // Increment failed attempts
+        $_SESSION['login_attempts']++;
+        $_SESSION['last_attempt_time'] = time();
+        
         echo json_encode([
             'success' => false,
             'message' => 'Invalid username/email or password'
         ]);
         exit;
     }
+    
+    // Successful login - Reset attempts and regenerate session ID for security
+    $_SESSION['login_attempts'] = 0;
+    session_regenerate_id(true);
     
     // Set session variables
     $_SESSION['user_id'] = $user['id'];

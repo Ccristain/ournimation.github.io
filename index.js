@@ -450,8 +450,8 @@ function createPostCard(post) {
 
   const mediaHTML = post.media
     ? post.mediaType === "video"
-      ? `<video src="${post.media}" controls style="width: 100%; border-radius: 8px; margin-bottom: 1rem;"></video>`
-      : `<img src="${post.media}" alt="Post media" style="width: 100%; border-radius: 8px; margin-bottom: 1rem;" />`
+      ? `<video src="${post.media}" controls style="width: 100%; border-radius: 8px; margin-bottom: 1rem;" preload="metadata"></video>`
+      : `<img src="${post.media}" alt="Post media" loading="lazy" style="width: 100%; border-radius: 8px; margin-bottom: 1rem;" />`
     : "";
 
   const commentsHTML = post.comments.length
@@ -464,6 +464,7 @@ function createPostCard(post) {
                   src="${comment.avatar || "placeholder-avatar.png"}"
                   alt="Commenter"
                   class="comment-avatar"
+                  loading="lazy"
                 />
                 <div class="comment-body">
                   <span class="comment-username">${comment.username || "Guest"}</span>
@@ -478,7 +479,7 @@ function createPostCard(post) {
 
   postCard.innerHTML = `
     <div class="post-header">
-      <img src="${post.creatorAvatar || "placeholder-avatar.png"}" alt="Creator" class="post-avatar" />
+      <img src="${post.creatorAvatar || "placeholder-avatar.png"}" alt="Creator" class="post-avatar" loading="lazy" />
       <div class="post-info">
         <h3 class="post-creator">${post.creatorName || post.creator}</h3>
         <span class="post-time">${post.time}</span>
@@ -576,6 +577,7 @@ function createPostCard(post) {
         src="${avatarSrc}"
         alt="Commenter"
         class="comment-avatar"
+        loading="lazy"
       />
       <div class="comment-body">
         <span class="comment-username">${username}</span>
