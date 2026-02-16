@@ -347,110 +347,6 @@
       </main>
     </div>
 
-    <!-- Login Modal -->
-    <section class="auth-modal" id="loginModal" role="dialog" aria-modal="true">
-      <section class="auth-card">
-        <button class="close-auth-modal" id="closeLoginModal">
-          <i class="fas fa-times"></i>
-        </button>
-        <header class="auth-card-header">
-          <h2>Login</h2>
-        </header>
-        <form class="auth-form" id="loginForm">
-          <div class="form-group">
-            <label for="loginEmail">
-              <i class="fas fa-envelope"></i> Username or Email
-            </label>
-            <input
-              type="text"
-              id="loginEmail"
-              placeholder="Enter your username or email"
-              required
-            />
-          </div>
-          <div class="form-group">
-            <label for="loginPassword">
-              <i class="fas fa-lock"></i> Password
-            </label>
-            <input
-              type="password"
-              id="loginPassword"
-              placeholder="Enter your password"
-              required
-            />
-          </div>
-          <div class="auth-remember-row">
-            <div class="form-group-checkbox">
-              <input type="checkbox" id="loginRemember" />
-              <label for="loginRemember">Remember me</label>
-            </div>
-            <div class="auth-forgot">
-              <a href="#">Forgot password?</a>
-            </div>
-          </div>
-          <button type="submit" class="auth-submit-btn">
-            <i class="fas fa-sign-in-alt"></i> Login
-          </button>
-        </form>
-        <footer class="auth-switch">
-          <p>Don't have an account?</p>
-          <button class="switch-auth-btn" id="switchToSignup">Sign Up</button>
-        </footer>
-      </section>
-    </section>
-
-    <!-- Signup Modal -->
-    <section
-      class="auth-modal"
-      id="signupModal"
-      role="dialog"
-      aria-modal="true"
-    >
-      <section class="auth-card">
-        <button class="close-auth-modal" id="closeSignupModal">
-          <i class="fas fa-times"></i>
-        </button>
-        <header class="auth-card-header">
-          <h2>Sign Up</h2>
-        </header>
-        <form class="auth-form" id="signupForm">
-          <div class="form-group">
-            <label for="signupEmail">
-              <i class="fas fa-envelope"></i> Username or Email
-            </label>
-            <input
-              type="text"
-              id="signupEmail"
-              placeholder="Enter your username or email"
-              required
-            />
-          </div>
-          <div class="form-group">
-            <label for="signupPassword">
-              <i class="fas fa-lock"></i> Password
-            </label>
-            <input
-              type="password"
-              id="signupPassword"
-              placeholder="Enter your password"
-              required
-            />
-          </div>
-          <div class="form-group-checkbox">
-            <input type="checkbox" id="signupRemember" />
-            <label for="signupRemember">Remember me</label>
-          </div>
-          <button type="submit" class="auth-submit-btn">
-            <i class="fas fa-user-plus"></i> Create Account
-          </button>
-        </form>
-        <footer class="auth-switch">
-          <p>Already have an account?</p>
-          <button class="switch-auth-btn" id="switchToLogin">Login</button>
-        </footer>
-      </section>
-    </section>
-
     <!-- Footer: site links and copyright -->
     <footer class="footer">
       <div class="footer-content">
@@ -464,7 +360,7 @@
       </div>
     </footer>
 
-    <script src="../index.js"></script>
+    <script src="../auth.js"></script>
     <script src="tutorial.js"></script>
   </body>
 </html>
