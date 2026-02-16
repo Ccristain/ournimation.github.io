@@ -58,11 +58,29 @@ function showAccountInfo() {
   accountInfo.style.display = "flex";
 }
 
-// Click account-info to show auth buttons
+// Click account-info to show auth buttons or logout
 if (accountInfo && authButtons) {
   accountInfo.addEventListener("click", (event) => {
     event.stopPropagation();
-    showAuthButtons();
+
+    // Check if user is logged in
+    const usernameElement = document.querySelector(".account-info .username");
+    const currentUsername = usernameElement
+      ? usernameElement.textContent.trim()
+      : "Guest";
+
+    if (currentUsername !== "Guest") {
+      // User is logged in, show logout confirmation
+      const confirmLogout = confirm(
+        `Logged in as ${currentUsername}. Do you want to logout?`,
+      );
+      if (confirmLogout) {
+        logout();
+      }
+    } else {
+      // User is not logged in, show auth buttons
+      showAuthButtons();
+    }
   });
 
   // Click anywhere else to show account-info again
@@ -174,31 +192,89 @@ if (signupModal) {
 
 // Handle login form submission
 if (loginForm) {
-  loginForm.addEventListener("submit", (event) => {
+  loginForm.addEventListener("submit", async (event) => {
     event.preventDefault();
-    const email = document.getElementById("loginEmail").value;
+    const username = document.getElementById("loginEmail").value;
     const password = document.getElementById("loginPassword").value;
     const remember = document.getElementById("loginRemember").checked;
 
-    console.log("Login:", { email, password, remember });
-    alert("Login functionality coming soon!");
-    closeLoginModalFunc();
-    loginForm.reset();
+    try {
+      const response = await fetch("login.php", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ username, password, remember }),
+      });
+
+      // Check if response is ok
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+
+      if (data.success) {
+        alert(data.message);
+        // Update UI with user info
+        updateUserUI(data.user);
+        closeLoginModalFunc();
+        loginForm.reset();
+      } else {
+        alert(data.message);
+      }
+    } catch (error) {
+      console.error("Login error:", error);
+      alert(
+        "An error occurred during login. Please try again.\n\nError: " +
+          error.message +
+          "\n\nMake sure you are accessing through Apache (http://localhost/GreatLearning/ournimation.github.io/) not Live Server (port 5500).",
+      );
+    }
   });
 }
 
 // Handle signup form submission
 if (signupForm) {
-  signupForm.addEventListener("submit", (event) => {
+  signupForm.addEventListener("submit", async (event) => {
     event.preventDefault();
-    const email = document.getElementById("signupEmail").value;
+    const username = document.getElementById("signupEmail").value;
     const password = document.getElementById("signupPassword").value;
     const remember = document.getElementById("signupRemember").checked;
 
-    console.log("Signup:", { email, password, remember });
-    alert("Sign up functionality coming soon!");
-    closeSignupModalFunc();
-    signupForm.reset();
+    try {
+      const response = await fetch("signup.php", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ username, password, remember }),
+      });
+
+      // Check if response is ok
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+
+      if (data.success) {
+        alert(data.message);
+        // Update UI with user info
+        updateUserUI(data.user);
+        closeSignupModalFunc();
+        signupForm.reset();
+      } else {
+        alert(data.message);
+      }
+    } catch (error) {
+      console.error("Signup error:", error);
+      alert(
+        "An error occurred during signup. Please try again.\n\nError: " +
+          error.message +
+          "\n\nMake sure you are accessing through Apache (http://localhost/GreatLearning/ournimation.github.io/) not Live Server (port 5500).",
+      );
+    }
   });
 }
 
@@ -547,9 +623,65 @@ function likePost(postId, button) {
   }
 }
 
+// Update UI with logged-in user information
+function updateUserUI(user) {
+  const usernameElement = document.querySelector(".account-info .username");
+  if (usernameElement && user.username) {
+    usernameElement.textContent = user.username;
+  }
+  // Show account info, hide auth buttons
+  showAccountInfo();
+}
+
+// Check if user is logged in on page load
+async function checkSession() {
+  try {
+    const response = await fetch("check_session.php");
+    const data = await response.json();
+
+    if (data.success && data.loggedIn) {
+      updateUserUI(data.user);
+    } else {
+      // User not logged in, show auth buttons
+      const usernameElement = document.querySelector(".account-info .username");
+      if (usernameElement) {
+        usernameElement.textContent = "Guest";
+      }
+    }
+  } catch (error) {
+    console.error("Session check error:", error);
+  }
+}
+
+// Logout functionality
+async function logout() {
+  try {
+    const response = await fetch("logout.php", {
+      method: "POST",
+    });
+
+    const data = await response.json();
+
+    if (data.success) {
+      // Reset UI to guest
+      const usernameElement = document.querySelector(".account-info .username");
+      if (usernameElement) {
+        usernameElement.textContent = "Guest";
+      }
+      alert("Logged out successfully");
+      // Optionally reload the page
+      // window.location.reload();
+    }
+  } catch (error) {
+    console.error("Logout error:", error);
+    alert("An error occurred during logout.");
+  }
+}
+
 // Initial render + UI enhancements (auto-grow textarea, file label)
 document.addEventListener("DOMContentLoaded", () => {
   renderPosts();
+  checkSession(); // Check if user is logged in
 
   // Mobile hamburger menu toggle
   const hamburgerBtn = document.getElementById("hamburgerBtn");
